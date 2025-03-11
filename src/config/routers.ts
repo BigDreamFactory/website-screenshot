@@ -23,11 +23,6 @@ import logger from '@middleware/logger'
 const loadRouters = (app: Express) => {
   app.use(index)
 
-  app.use('/robots.txt', function (_req, res) {
-    res.type('text/plain')
-    res.send('User-agent: *\nDisallow: /')
-  })
-
   // if (process.env.NODE_ENV != 'production') {
   //   app.all('*', blocker)
   // }
