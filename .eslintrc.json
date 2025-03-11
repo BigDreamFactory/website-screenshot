@@ -1,0 +1,21 @@
+{
+  "root": true,
+  "extends": ["eslint:recommended", "prettier", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint"],
+  "env": {
+    "es2021": true,
+    "node": true
+  },
+  "settings": {
+    // This part is required to work with eslint, the rest is already setup to use import
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "ignorePatterns": [".dist"]
+}

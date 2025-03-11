@@ -1,0 +1,16 @@
+{
+  "defaultParams": {
+    "from": "tadas@bigdreamfactory.com",
+    "fromName": "Tadas",
+    "reply_to": {
+      "email": "tadas@bigdreamfactory.com",
+      "name": "Tadas"
+    }
+  },
+  "senders": [
+    {
+      "email": "tadas@bigdreamfactory.com",
+      "name": "Tadas"
+    }
+  ]
+}

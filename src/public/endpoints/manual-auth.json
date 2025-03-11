@@ -1,0 +1,43 @@
+[
+  {
+    "path": "/",
+    "methods": ["GET"],
+    "roleAccess": true
+  },
+  {
+    "path": "/assets/*",
+    "methods": ["GET"]
+  },
+  {
+    "path": "/public/*",
+    "methods": ["GET"]
+  },
+  {
+    "path": "/list-paths",
+    "methods": ["GET"]
+  },
+  {
+    "path": "/list-methods",
+    "methods": ["GET"]
+  },
+  {
+    "path": "/users/auth/login",
+    "methods": ["POST"]
+  },
+  {
+    "path": "/logs",
+    "methods": ["POST"]
+  },
+  {
+    "path": "/raw/stripe/webhook",
+    "methods": ["POST"]
+  },
+  {
+    "path": "/members/membership/create",
+    "methods": ["POST"]
+  },
+  {
+    "path": "/senders/client/:clientId",
+    "methods": ["GET"]
+  }
+]

@@ -1,0 +1,5 @@
+[
+  { "title": "small", "width": 512 },
+  { "title": "medium", "width": 1024 },
+  { "title": "large", "width": 1536 }
+]
