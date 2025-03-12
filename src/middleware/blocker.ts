@@ -3,8 +3,8 @@ import { Request, Response, NextFunction } from 'express'
 
 const blocker = (req: Request, res: Response, next: NextFunction) => {
   if (
-    req.get('handshake') != 'handshake' &&
-    req.query.handshake != 'handshake' &&
+    req.get('handshake') != 'website-screenshot' &&
+    req.query.handshake != 'website-screenshot' &&
     req.path != '/members/auth/google/callback' &&
     req.path != '/members/auth/facebook/callback' &&
     !req.path.includes('/assets/') &&

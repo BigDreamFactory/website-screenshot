@@ -8,6 +8,7 @@ import emailRouter from '@api/internal/emails/routers/email'
 import memberRouter from '@api/content/members/routers/member'
 
 // import stripeRouter from '@api/internal/stripe/routers/stripe'
+import screenshotoneRouter from '@api/internal/screenshotone/routers/screenshotone'
 
 import contactRouter from '@api/content/contacts/routers/contact'
 
@@ -18,14 +19,12 @@ import listRouters from '@helpers/endpoints/routes/listRouters'
 // Middleware
 import auth from '@middleware/auth'
 import logger from '@middleware/logger'
-// import blocker from '@middleware/blocker'
+import blocker from '@middleware/blocker'
 
 const loadRouters = (app: Express) => {
   app.use(index)
 
-  // if (process.env.NODE_ENV != 'production') {
-  //   app.all('*', blocker)
-  // }
+  app.all('*', blocker)
 
   app.all('*', logger)
 
@@ -38,6 +37,7 @@ const loadRouters = (app: Express) => {
   app.use(memberRouter)
 
   // app.use(stripeRouter)
+  app.use(screenshotoneRouter)
 
   app.use(contactRouter)
 
