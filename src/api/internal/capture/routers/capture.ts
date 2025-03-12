@@ -6,6 +6,7 @@ import { ClientError, handleClientError } from '@helpers/errors/exception'
 
 // Packages
 import * as screenshotone from 'screenshotone-api-sdk'
+import { instanceOfString } from '@helpers/utils/interfaces'
 
 const soAccessKey = process.env.SCREENSHOTONE_ACCESS_KEY
 const soSecretKey = process.env.SCREENSHOTONE_SECRET_KEY
@@ -18,19 +19,29 @@ const soClient = new screenshotone.Client(soAccessKey, soSecretKey)
 
 const router = express.Router()
 
-router.post('/capture', async (req, res) => {
+router.get('/capture', async (req, res) => {
   try {
-    const { type, url, options } = req.body
+    const { type, url, width, height, fullPage, mobile } = req.query
+
+    if (
+      !instanceOfString(url) ||
+      !instanceOfString(width) ||
+      !instanceOfString(height) ||
+      !instanceOfString(fullPage) ||
+      !instanceOfString(mobile)
+    ) {
+      throw new ClientError('missing_required_fields', 'One or more required fields are missing')
+    }
 
     let captureBlob
 
     if (type == 'static') {
       const soOptions = screenshotone.TakeOptions.url(url)
-        .format('webp')
-        .viewportWidth(options.width)
-        .viewportHeight(options.height)
-        .fullPage(options.fullPage)
-        .viewportMobile(options.mobile)
+        .format('png')
+        .viewportWidth(Number(width))
+        .viewportHeight(Number(height))
+        .viewportMobile(mobile == 'true')
+        .fullPage(fullPage == 'true')
         .blockAds(true)
         .blockCookieBanners(true)
         .blockTrackers(true)
@@ -39,9 +50,9 @@ router.post('/capture', async (req, res) => {
     } else if (type == 'scroll') {
       const soOptions = screenshotone.AnimateOptions.url('https://www.canva.com')
         .format('mp4')
-        .viewportWidth(options.width)
-        .viewportHeight(options.height)
-        .viewportMobile(options.mobile)
+        .viewportWidth(Number(width))
+        .viewportHeight(Number(height))
+        .viewportMobile(mobile == 'true')
         .blockAds(true)
         .blockCookieBanners(true)
         .blockTrackers(true)
@@ -50,7 +61,7 @@ router.post('/capture', async (req, res) => {
         .duration(5)
         .scrollDelay(500)
         .scrollDuration(1500)
-        .scrollBy(options.height)
+        .scrollBy(Number(height))
         .scrollComplete(true)
         .scrollBack(true)
         .scrollEasing('ease_in_out_quint')
