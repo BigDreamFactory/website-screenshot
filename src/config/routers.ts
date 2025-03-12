@@ -8,7 +8,7 @@ import emailRouter from '@api/internal/emails/routers/email'
 import memberRouter from '@api/content/members/routers/member'
 
 // import stripeRouter from '@api/internal/stripe/routers/stripe'
-import screenshotoneRouter from '@api/internal/screenshotone/routers/screenshotone'
+import captureRouter from '@api/internal/capture/routers/capture'
 
 import contactRouter from '@api/content/contacts/routers/contact'
 
@@ -37,7 +37,7 @@ const loadRouters = (app: Express) => {
   app.use(memberRouter)
 
   // app.use(stripeRouter)
-  app.use(screenshotoneRouter)
+  app.use(captureRouter)
 
   app.use(contactRouter)
 
