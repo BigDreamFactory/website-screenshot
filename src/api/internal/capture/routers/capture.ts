@@ -26,7 +26,7 @@ router.post('/capture', async (req, res) => {
 
     if (type == 'static') {
       const soOptions = screenshotone.TakeOptions.url(url)
-        .format('png')
+        .format('webp')
         .viewportWidth(options.width)
         .viewportHeight(options.height)
         .fullPage(options.fullPage)
