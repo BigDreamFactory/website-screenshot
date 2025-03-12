@@ -27,7 +27,6 @@ router.get('/capture', async (req, res) => {
       !instanceOfString(url) ||
       !instanceOfString(width) ||
       !instanceOfString(height) ||
-      !instanceOfString(fullPage) ||
       !instanceOfString(mobile)
     ) {
       throw new ClientError('missing_required_fields', 'One or more required fields are missing')
@@ -45,6 +44,8 @@ router.get('/capture', async (req, res) => {
         .blockAds(true)
         .blockCookieBanners(true)
         .blockTrackers(true)
+        .cache(true)
+        .cacheTtl(14400)
 
       captureBlob = await soClient.take(soOptions)
     } else if (type == 'scroll') {
@@ -65,6 +66,8 @@ router.get('/capture', async (req, res) => {
         .scrollComplete(true)
         .scrollBack(true)
         .scrollEasing('ease_in_out_quint')
+        .cache(true)
+        .cacheTtl(14400)
 
       captureBlob = await soClient.animate(soOptions)
     } else {
