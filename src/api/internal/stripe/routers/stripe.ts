@@ -8,9 +8,6 @@ import stripe from '@vendors/stripe'
 import { handleClientError } from '@helpers/errors/exception'
 import { instanceOfString } from '@helpers/utils/interfaces'
 
-// Actions
-import { subscriptionDeleteAction, subscriptionActiveAction } from '../actions/stripe'
-
 const router = express.Router()
 
 router.post('/raw/stripe/webhook', async (req, res) => {
@@ -33,13 +30,11 @@ router.post('/raw/stripe/webhook', async (req, res) => {
 
     switch (event.type) {
       case 'customer.subscription.updated': {
-        if (event.data.object.status == 'active') {
-          await subscriptionActiveAction({ event })
-        }
+        // if (event.data.object.status == 'active') {
+        // }
         break
       }
       case 'customer.subscription.deleted':
-        await subscriptionDeleteAction({ event })
         break
     }
 
