@@ -21,15 +21,17 @@ const router = express.Router()
 
 router.get('/capture', async (req, res) => {
   try {
-    const { type, url, width, height, fullPage, mobile } = req.query
+    const {
+      type,
+      url,
+      width = '1920',
+      height = '1080',
+      fullPage = 'false',
+      mobile = 'false'
+    } = req.query
 
-    if (
-      !instanceOfString(url) ||
-      !instanceOfString(width) ||
-      !instanceOfString(height) ||
-      !instanceOfString(mobile)
-    ) {
-      throw new ClientError('missing_required_fields', 'One or more required fields are missing')
+    if (!instanceOfString(url)) {
+      throw new ClientError('missing_website_url', 'Missing website url')
     }
 
     let captureBlob
@@ -49,7 +51,7 @@ router.get('/capture', async (req, res) => {
 
       captureBlob = await soClient.take(soOptions)
     } else if (type == 'scroll') {
-      const soOptions = screenshotone.AnimateOptions.url('https://www.canva.com')
+      const soOptions = screenshotone.AnimateOptions.url(url)
         .format('mp4')
         .viewportWidth(Number(width))
         .viewportHeight(Number(height))
@@ -59,7 +61,7 @@ router.get('/capture', async (req, res) => {
         .blockTrackers(true)
         .scenario('scroll')
         .scrollStartImmediately(true)
-        .duration(5)
+        .duration(30)
         .scrollDelay(500)
         .scrollDuration(1500)
         .scrollBy(Number(height))
